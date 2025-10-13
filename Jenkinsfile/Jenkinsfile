@@ -2,12 +2,13 @@ pipeline {
     agent any
 
     environment {
-        // Jenkins credentials (create these in Jenkins UI)
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')   // Username + Password (Docker Hub)
-        KUBECONFIG_CRED = credentials('kubeconfig-file')          // Secret file: ~/.kube/config
-        DOCKERHUB_USER = 'edwin305'
-        IMAGE_NAME = 'edwin305/<repo-name>'
-        IMAGE_TAG = "${env.BUILD_NUMBER ?: 'latest'}"
+        // Jenkins credentials (create these in Jenkins -> Credentials -> Global)
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')   // DockerHub username + password
+        KUBECONFIG_CRED       = credentials('kubeconfig-file')   // Secret file: ~/.kube/config
+
+        DOCKERHUB_USER = 'edwin684'
+        IMAGE_NAME      = 'edwin684/k8s-cicd-pipeline'
+        IMAGE_TAG       = "${env.BUILD_NUMBER ?: 'latest'}"
     }
 
     stages {
@@ -46,7 +47,7 @@ pipeline {
             steps {
                 script {
                     echo "☸️ Deploying to Kubernetes cluster..."
-                    // Write kubeconfig from Jenkins secret file
+                    // Write kubeconfig file from Jenkins credentials
                     writeFile file: 'kubeconfig', text: KUBECONFIG_CRED
                     sh '''
                         export KUBECONFIG=kubeconfig
