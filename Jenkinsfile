@@ -20,11 +20,16 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            steps {
-                echo "🐳 Building Docker image..."
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-            }
+    steps {
+        script {
+            echo "🐳 Building Docker image..."
+            sh """
+                docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ./backend
+            """
         }
+    }
+}
+
 
         stage('Login & Push to DockerHub') {
             steps {
