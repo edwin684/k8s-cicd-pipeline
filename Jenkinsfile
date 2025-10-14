@@ -22,8 +22,8 @@ pipeline {
                           userRemoteConfigs: [[
                               url: 'https://github.com/edwin684/k8s-cicd-pipeline.git',
                               credentialsId: 'GIT_CRED'
-                          ]]
-                ])
+                          ]]]
+                )
             }
         }
 
@@ -31,19 +31,19 @@ pipeline {
             steps {
                 script {
                     echo "🐳 Building frontend Docker image..."
-                    sh """
-                        docker build -t ${IMAGE_NAME}-frontend:${IMAGE_TAG} ./frontend
-                    """
+                    dir('frontend') {
+                        sh "docker build -t ${IMAGE_NAME}-frontend:${IMAGE_TAG} ."
+                    }
 
                     echo "🐳 Building backend Docker image..."
-                    sh """
-                        docker build -t ${IMAGE_NAME}-backend:${IMAGE_TAG} ./backend
-                    """
+                    dir('backend') {
+                        sh "docker build -t ${IMAGE_NAME}-backend:${IMAGE_TAG} ."
+                    }
                 }
             }
         }
 
-        stage('Login & Push to DockerHub') {
+        stage('Docker Login & Push') {
             steps {
                 script {
                     echo "🚀 Logging in to DockerHub and pushing images..."
@@ -78,6 +78,8 @@ pipeline {
                 sh """
                     docker rmi ${IMAGE_NAME}-frontend:${IMAGE_TAG} || true
                     docker rmi ${IMAGE_NAME}-backend:${IMAGE_TAG} || true
+                    docker logout
+                    docker system prune -af
                 """
             }
         }
