@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     environment {
-        // Jenkins credentials (create these in Jenkins -> Credentials -> Global)
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')   // DockerHub username + password
-        KUBECONFIG_CRED       = credentials('kubeconfig-file')   // Secret file: ~/.kube/config
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')  
+        KUBECONFIG_CRED       = credentials('kubeconfig-file')  
 
         DOCKERHUB_USER = 'edwin684'
         IMAGE_NAME     = 'edwin684/k8s-cicd-pipeline'
@@ -16,8 +15,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "📦 Checking out source code from GitHub..."
-                // No need to git clone manually
-                sh 'ls -l' // optional: lists files in workspace
+                sh 'ls -l' // optional: list files
             }
         }
 
@@ -53,11 +51,12 @@ pipeline {
         }
 
         stage('Cleanup') {
-    steps {
-        echo "🧹 Cleaning up local Docker images..."
-        sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG} || true"
+            steps {
+                echo "🧹 Cleaning up local Docker images..."
+                sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG} || true"
+            }
+        }
     }
-}
 
     post {
         success {
