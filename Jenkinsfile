@@ -7,8 +7,8 @@ pipeline {
         GIT_CRED              = credentials('GIT_CRED')          // GitHub PAT
         KUBECONFIG_CRED       = credentials('kubeconfig-file')  // Secret file: ~/.kube/config
 
-        DOCKERHUB_USER = 'edwin684'
-        IMAGE_NAME     = 'edwin684/k8s-cicd-pipeline'
+        DOCKERHUB_USER = 'edwin305'
+        IMAGE_NAME     = 'edwin305/k8s-cicd-pipeline'
         IMAGE_TAG      = "${env.BUILD_NUMBER ?: 'latest'}"
     }
 
