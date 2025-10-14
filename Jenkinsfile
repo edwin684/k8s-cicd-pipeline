@@ -53,10 +53,11 @@ pipeline {
         }
 
         stage('Cleanup') {
-            echo "🧹 Cleaning up local Docker images..."
-            sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG} || true"
-        }
+    steps {
+        echo "🧹 Cleaning up local Docker images..."
+        sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG} || true"
     }
+}
 
     post {
         success {
