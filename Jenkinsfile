@@ -44,17 +44,17 @@ pipeline {
         }
 
         stage('Docker Login & Push') {
-            steps {
-                script {
-                    echo "🚀 Logging in to DockerHub and pushing images..."
-                    sh """
-                        echo "${DOCKERHUB_CREDENTIALS_PSW}" | docker login -u "${DOCKERHUB_USER}" --password-stdin
-                        docker push ${IMAGE_NAME}-frontend:${IMAGE_TAG}
-                        docker push ${IMAGE_NAME}-backend:${IMAGE_TAG}
-                    """
-                }
-            }
+    steps {
+        script {
+            echo "🚀 Logging in to DockerHub and pushing images..."
+            sh """
+                echo "${DOCKERHUB_CREDENTIALS_PSW}" | docker login -u "${DOCKERHUB_CREDENTIALS_USR}" --password-stdin
+                docker push ${IMAGE_NAME}-frontend:${IMAGE_TAG}
+                docker push ${IMAGE_NAME}-backend:${IMAGE_TAG}
+            """
         }
+    }
+}
 
         stage('Deploy to Kubernetes (EKS)') {
             steps {
