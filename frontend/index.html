@@ -6,7 +6,22 @@
 </head>
 <body>
   <h1>3-tier App Demo</h1>
-  <p id="msg">Loading...</p>
+  <h1>3-tier App Demo 🚀 Updated!</h1>
+<p id="msg">Loading updated backend message... (Updated at: <span id="time"></span>)</p>
+
+<script>
+  document.getElementById('time').innerText = new Date().toLocaleTimeString();
+
+  fetch('/api/hello')
+    .then(r => r.json())
+    .then(j => {
+      document.getElementById('msg').innerText = j.msg + ' (backend uses: ' + j.mongo + ')';
+    })
+    .catch(e => { 
+      document.getElementById('msg').innerText = 'Cannot reach backend: ' + e 
+    });
+</script>
+
 
   <script>
     fetch('/api/hello')
