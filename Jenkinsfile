@@ -32,12 +32,12 @@ pipeline {
                 script {
                     echo "🐳 Building frontend Docker image..."
                     dir('frontend') {
-                        sh "docker build -t ${IMAGE_NAME}-frontend:${IMAGE_TAG} ."
+                        sh "docker build --no-cache -t ${IMAGE_NAME}-frontend:${IMAGE_TAG} ."
                     }
 
                     echo "🐳 Building backend Docker image..."
                     dir('backend') {
-                        sh "docker build -t ${IMAGE_NAME}-backend:${IMAGE_TAG} ."
+                        sh "docker build --no-cache -t ${IMAGE_NAME}-backend:${IMAGE_TAG} ."
                     }
                 }
             }
