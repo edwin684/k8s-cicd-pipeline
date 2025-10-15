@@ -1,15 +1,16 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
+const PORT = 3000;
+const mongoURL = process.env.MONGO_URL || 'mongodb://mongo:27017/testdb';
 
-const port = process.env.PORT || 3000;
-const mongoUrl = process.env.MONGO_URL || 'mongodb://mongo:27017/testdb';
-
-app.get('/api/hello', (req, res) => {
-  res.json({ msg: 'Hello from backend', mongo: mongoUrl });
+app.get('/api/hello', async (req, res) => {
+  try {
+    await mongoose.connect(mongoURL);
+    res.json({ msg: 'Hello from Backend!', mongo: 'Connected ✅' });
+  } catch (err) {
+    res.json({ msg: 'Hello from Backend!', mongo: 'Not Connected ❌' });
+  }
 });
 
-app.get('/', (req, res) => {
-  res.send('Backend is running');
-});
-
-app.listen(port, () => console.log(`Backend listening on ${port}`));
+app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));

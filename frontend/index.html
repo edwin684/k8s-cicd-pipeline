@@ -1,38 +1,24 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>3-tier App v2</title>
-  <style>
-    body {
-      background-color: #f0f9ff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px;
-    }
-    h1 {
-      color: #0078d7;
-    }
-    p {
-      color: #333;
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
-  <h1>🚀 3-tier App Demo — Version 2</h1>
-  <p id="msg">Loading backend message...</p>
-  <p><em>Deployed via Jenkins + Docker + Kubernetes</em></p>
+  <head>
+    <meta charset="utf-8">
+    <title>3-Tier App</title>
+  </head>
+  <body>
+    <h1>Welcome to the New 3-Tier App 🚀</h1>
+    <p id="msg">Loading data from backend...</p>
 
-  <script>
-    fetch('/api/hello')
-      .then(r => r.json())
-      .then(j => {
-        document.getElementById('msg').innerText = j.msg + ' (backend uses: ' + j.mongo + ')';
-      })
-      .catch(e => {
-        document.getElementById('msg').innerText = 'Cannot reach backend: ' + e;
-      });
-  </script>
-</body>
+    <script>
+      fetch('/api/hello')
+        .then(r => r.json())
+        .then(j => {
+          document.getElementById('msg').innerText =
+            j.msg + ' (Database: ' + j.mongo + ')';
+        })
+        .catch(e => {
+          document.getElementById('msg').innerText =
+            'Backend unreachable: ' + e;
+        });
+    </script>
+  </body>
 </html>
