@@ -13,10 +13,10 @@ spec:
         app: frontend
     spec:
       containers:
-      - name: frontend
-        image: edwin305/k8s-cicd-pipeline-frontend:latest:7
-        ports:
-        - containerPort: 80
+        - name: frontend
+          image: edwin305/k8s-cicd-pipeline-frontend:16
+          ports:
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -27,5 +27,5 @@ spec:
   selector:
     app: frontend
   ports:
-  - port: 80
-    targetPort: 80
+    - port: 80
+      targetPort: 80

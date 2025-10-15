@@ -13,13 +13,13 @@ spec:
         app: backend
     spec:
       containers:
-      - name: backend
-        image: edwin305/k8s-cicd-pipeline-backend:latest:7
-        ports:
-        - containerPort: 3000
-        env:
-        - name: MONGO_URL
-          value: "mongodb://mongo:27017/testdb"
+        - name: backend
+          image: edwin305/k8s-cicd-pipeline-backend:16
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_URL
+              value: "mongodb://mongo:27017/testdb"
 ---
 apiVersion: v1
 kind: Service
@@ -29,5 +29,5 @@ spec:
   selector:
     app: backend
   ports:
-  - port: 3000
-    targetPort: 3000
+    - port: 3000
+      targetPort: 3000
