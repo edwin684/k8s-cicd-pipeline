@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: edwin305/k8s-cicd-pipeline-backend:latest
+        image: edwin305/k8s-cicd-pipeline-backend:latest:7
         ports:
         - containerPort: 3000
         env:

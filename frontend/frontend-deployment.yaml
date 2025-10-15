@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: edwin305/k8s-cicd-pipeline-frontend:latest
+        image: edwin305/k8s-cicd-pipeline-frontend:latest:7
         ports:
         - containerPort: 80
 ---
